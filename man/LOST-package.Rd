@@ -12,8 +12,8 @@ LOST includes functions for simulating missing morphometric data randomly, with 
 \tabular{ll}{
 Package: \tab LOST\cr
 Type: \tab Package\cr
-Version: \tab 1.0\cr
-Date: \tab 2012-04-16\cr
+Version: \tab 1.1\cr
+Date: \tab 2013-09-26\cr
 License: \tab GPL (>= 2)\cr
 }
 }
@@ -23,6 +23,8 @@ J. Arbour and C. Brown
 Maintainer: jessica.arbour@utoronto.ca
 }
 \references{
-Brown, C., Arbour, J. and Jackson, D. (In Press) Testing of the Effect of Missing Data Estimation and Distribution in Morphometric Multivariate Data Analyses. \emph{Systematic Biology}
+Arbour, J. and Brown, C. \emph{In Press}. Incomplete specimens in Geometric Morphometric Analyses. \emph{Methods in Ecology and Evolution}
+
+Brown, C., Arbour, J. and Jackson, D. 2012. Testing of the Effect of Missing Data Estimation and Distribution in Morphometric Multivariate Data Analyses. \emph{Systematic Biology} 61(6):941-954.
 }
 

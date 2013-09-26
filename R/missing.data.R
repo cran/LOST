@@ -7,7 +7,7 @@ ndat<-1:totaldata
 remove<-sample(ndat,n,replace=FALSE)
 for (k in 1:n) {
   i<-remove[k]
-x[i]<-NA
+	x[i]<-NA
 }
 return(x)
 }

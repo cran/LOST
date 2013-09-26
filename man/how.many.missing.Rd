@@ -18,11 +18,21 @@ A n X m matrix of morphometric data with n specimens and m variables containing 
 Returns the percentage (as a decimal) of missing data points present in x
 }
 \references{
-Brown, C., Arbour, J. and Jackson, D. (In Press) Testing of the Effect of Missing Data Estimation and Distribution in Morphometric Multivariate Data Analyses. \emph{Systematic Biology}
+Brown, C., Arbour, J. and Jackson, D. 2012. Testing of the Effect of Missing Data Estimation and Distribution in Morphometric Multivariate Data Analyses. \emph{Systematic Biology} 61(6):941-954.
 }
 \author{
 J. Arbour and C. Brown
 }
 \seealso{
 \code{\link{missing.data}}
+}
+\examples{
+data(crocs)
+
+## remove 30% of data points
+croc.miss<-missing.data(crocs,0.3)
+
+## should return 0.3
+how.many.missing (croc.miss)
+
 }

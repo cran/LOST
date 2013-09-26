@@ -21,7 +21,7 @@ The percentage of data to be removed from the matrix, expressed as a decimal (ex
 Returns a n X m matrix of morphometric data with missing variables input as NA
 }
 \references{
-Brown, C., Arbour, J. and Jackson, D. (In Press) Testing of the Effect of Missing Data Estimation and Distribution in Morphometric Multivariate Data Analyses. \emph{Systematic Biology}
+Brown, C., Arbour, J. and Jackson, D. 2012. Testing of the Effect of Missing Data Estimation and Distribution in Morphometric Multivariate Data Analyses. \emph{Systematic Biology} 61(6):941-954.
 }
 \author{
 J. Arbour and C. Brown

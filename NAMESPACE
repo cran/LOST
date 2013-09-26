@@ -1,1 +1,7 @@
 exportPattern("^[[:alpha:]]+")
+importFrom("shapes", procOPA, procGPA)
+importFrom("gdata", unmatrix)
+importFrom("MASS",ginv)
+importFrom("pcaMethods", pca,completeObs)
+importFrom("e1071", impute)
+importFrom("miscTools",insertRow)
