@@ -4,14 +4,14 @@
 Procrustes superimposition of landmark datasets with some missing values
 }
 \description{
-This function carries out a generalized procrustes superimposition on all fully complete specimens and produces a consensus confirguration (using "Shapes" procGPA). Each incomplete specimen is then individualyl rotated and aligned with the consensus configuration based on whatever landmarks are available (using "Shapes" procOPA). Landmarks are returned in the same shape space as the original dataset.
+This function carries out a generalized procrustes superimposition on all fully complete specimens and produces a consensus confirguration (using "Shapes" procGPA). Each incomplete specimen is then individually rotated and aligned with the consensus configuration based on any landmarks are available (using "Shapes" procOPA). Landmarks are returned in the same shape space as the original dataset. Both 2D and 3D coordinates can be accommodated.
 }
 \usage{
 align.missing(X, nlandmarks)
 }
 \arguments{
   \item{X}{
-A n* l X 2 matrix of coordinate data, where n is the number of specimens and l is the number of landmarks. All landmarks from one specimen should be grouped together. 
+A n* l X 2 (or 3) matrix of coordinate data, where n is the number of specimens and l is the number of landmarks. All landmarks from one specimen should be grouped together. 
 }
   \item{nlandmarks}{
 The number of landmarks per specimen
@@ -19,10 +19,10 @@ The number of landmarks per specimen
 }
 
 \value{
-Returns and n*l X 2 matrix of aligned landmarks
+Returns and n*l X 2 (or 3) matrix of aligned landmarks
 }
 \references{
-Arbour, J. and Brown, C. \emph{In Press}. Incomplete specimens in Geometric Morphometric Analyses. \emph{Methods in Ecology and Evolution}
+Arbour, J. and Brown, C. 2014. Incomplete specimens in Geometric Morphometric Analyses. \emph{Methods in Ecology and Evolution} 5(1):16-26.
 }
 \author{
 J. Arbour

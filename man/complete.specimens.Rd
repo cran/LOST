@@ -33,20 +33,3 @@ J. Arbour
 \seealso{
 \code{\link{align.missing}},code{\link{MissingGeoMorph}}
 }
-\examples{
-
-data(dacrya)
-
-#### make 10 specimens incomplete
-dac.miss<-missing.specimens(dacrya,10,c(1,2,3,4,5,6),16)
-dac.miss
-
-#### remove 10 incomplete specimens
-dac.com<-complete.specimens(dac.miss,16)
-dac.com
-
-### check that 10 were removed
-nrow(dac.com)/16
-
-## should be 63
-}

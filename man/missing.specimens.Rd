@@ -4,14 +4,14 @@
 Simulate incomplete specimens
 }
 \description{
-Randomly selects a pre-selected number of specimens from a landmark dataset and removes some of its landmarks.
+Randomly selects a pre-determined number of specimens from a landmark dataset (2D or 3D) and removes some of their landmarks.
 }
 \usage{
 missing.specimens(dataset, nspremove, nldremove, nlandmarks)
 }
 \arguments{
   \item{dataset}{
-A n* l X 2 matrix of coordinate data, where n is the number of specimens and l is the number of landmarks. All landmarks from one specimen should be grouped together. 
+A n*l X 2 (or 3) matrix of coordinate data, where n is the number of specimens and l is the number of landmarks. All landmarks from one specimen should be grouped together. 
 }
   \item{nspremove}{
 The number of specimens which should have landmarks removed. 
@@ -24,10 +24,10 @@ The number of landmarks per specimen
 }
 }
 \value{
-Returns an n * l X 2 matrix with some complete and some incomplete specimens.
+Returns an n * l X 2 (or 3) matrix with some complete and some incomplete specimens.
 }
 \references{
-Arbour, J. and Brown, C. \emph{In Press}. Incomplete specimens in Geometric Morphometric Analyses. \emph{Methods in Ecology and Evolution}
+Arbour, J. and Brown, C. 2014. Incomplete specimens in Geometric Morphometric Analyses. \emph{Methods in Ecology and Evolution} 5(1):16-26.
 }
 \author{
 J. Arbour

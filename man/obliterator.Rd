@@ -35,12 +35,3 @@ J. Arbour and C. Brown
 \seealso{
 \code{\link{missing.data}},\code{\link{byclade}}
 }
-\examples{
-data(crocs)
-data(crocs.landmarks)
-
-### remove 20% of data points, with anatomic bias
-croc.miss<-obliterator(crocs,0.2,crocs.landmarks)
-croc.miss
-
-}

@@ -26,15 +26,3 @@ J. Arbour and C. Brown
 \seealso{
 \code{\link{est.reg}}
 }
-\examples{
-
-data(crocs)
-
-### remove 30% of data points
-croc.miss<-missing.data(crocs,0.3)
-croc.miss
-
-### estimating missing points
-croc.new<-best.reg(croc.miss)
-croc.new
-}

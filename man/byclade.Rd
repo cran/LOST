@@ -36,16 +36,3 @@ J. Arbour and C. Brown
 \seealso{
 \code{\link{missing.data}},\code{\link{obliterator}}
 }
-\examples{
-
-data(crocs)
-
-## make some fake groups
-rows<-nrow(crocs)
-groups<-rep(1:4,length.out=rows)
-groups
-
-## remove 20% of data points
-croc.miss<-byclade(crocs,0.2,4,groups)
-croc.miss
-}
