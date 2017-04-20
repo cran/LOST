@@ -1,11 +1,12 @@
-49937affc45c657717b02497fdfbf27c *DESCRIPTION
-4ce2a2e893390b9bd94c0bd70ce9f32f *NAMESPACE
-c7db20ff61040951e66cec3740f03e5a *R/MissingGeoMorph.R
-de85b64ffd0a305ac446530ca8eabe95 *R/align.missing.R
+a36b23de68937a8bb93055207ec4ed58 *DESCRIPTION
+64f4f19d610c8fec0e1886e10dee9611 *NAMESPACE
+03a94964f4a40bc4b60be6a3eb684795 *R/MissingGeoMorph.R
+a2021a01c42bbbfc36b53566c72d29e1 *R/align.missing.R
 8e1ddbf596f64381ea216266d626d58b *R/best.reg.R
 fdc05484bf78ca999a175994dc7d74b0 *R/byclade.R
 f362933b87d46a9f1fe6e010e6e5bf0d *R/complete.specimens.R
 3996ff92b554276f4288effa61c02215 *R/est.reg.R
+5db0a4c0149b43e740a835133e7c1cdf *R/flipped.R
 fd3ba91d2dfe6cfe8b4250c97bca71d7 *R/how.many.missing.R
 0114e4666b470aa854da3fe5bcee88d7 *R/missing.data.R
 f28bba3754c2676b2fc29e824fef5034 *R/missing.specimens.R
@@ -23,6 +24,7 @@ c5c25555553656fe564e93adc17c8c23 *man/complete.specimens.Rd
 851a9a4bf4cd89e0ca8943ae6e62e422 *man/crocs.landmarks.Rd
 afbb937c5f2c6b63ca0bfc5216627894 *man/dacrya.Rd
 ff57c97cab866f32eadb0a107209ee1c *man/est.reg.Rd
+1f490925d30c44cd96a5509fff2add2a *man/flipped.Rd
 bc41f977b88c2f4ed2182d8d86f85f20 *man/how.many.missing.Rd
 5d816897fead3632c3735d9dd19398a4 *man/missing.data.Rd
 f62b8774125aafe1708008400a316f2c *man/missing.specimens.Rd

@@ -1,5 +1,4 @@
-align.missing <-
-function (X, nlandmarks) {
+align.missing<-function (X, nlandmarks) {
   format.array <- function(dataset, nlandmarks) {
     dataset <- as.matrix(dataset)
     nspecimen <- nrow(dataset)/nlandmarks
@@ -14,7 +13,9 @@ function (X, nlandmarks) {
     return(sparray)
   }
   complete.specimens <- function(dataset, nlandmarks) {
-    base <- c(1, 1)
+   if(ncol(dataset)==3){base<-c(1,1,1)
+   } else {
+     base <- c(1, 1)}
     included <- base
     excluded <- base
     nspecimen <- nrow(dataset)/nlandmarks
@@ -37,6 +38,8 @@ function (X, nlandmarks) {
     included <- included[2:end, ]
     return(included)
   }
+  
+  
   X.com <- matrix(ncol = ncol(X), nrow = nrow(X))
   xvalues <- X[, 1]
   nspecimen <- nrow(X)/nlandmarks

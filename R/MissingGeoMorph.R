@@ -1,14 +1,11 @@
-MissingGeoMorph <-
-function (x, nlandmarks, method = "BPCA") {
+MissingGeoMorph<-function (x, nlandmarks, method = "BPCA") {
   
   if(!requireNamespace("pcaMethods")){
-    warning("Some packages must be downloaded from bioconductor. Use setRepositories() to select 'BioC' options before using MissingGeoMorph for the first time.")
-    stop()
+    print("some packages must be downloaded from bioconductor, use setRepositories() to select 'BioC' options")
   }
   
   if(ncol(x)==3 & method=="TPS"){
     warning("method TPS can only support 2d data, see package geomorph for a 3d implementation")
-    stop()
   }
   
   format.array <- function(dataset, nlandmarks) {
@@ -181,7 +178,9 @@ function (x, nlandmarks, method = "BPCA") {
     return(estimated.matrix)
   }
   complete.specimens <- function(dataset, nlandmarks) {
-    base <- c(1, 1)
+    if(ncol(dataset)==3){base<-c(1,1,1)
+    } else {
+      base <- c(1, 1)}
     included <- base
     excluded <- base
     nspecimen <- nrow(dataset)/nlandmarks
