@@ -11,7 +11,7 @@ how.many.missing(x)
 }
 \arguments{
   \item{x}{
-A n X m matrix of morphometric data with n specimens and m variables containing some percentage of missing data
+A n X m matrix of morphometric data with n specimens and m variables, or a or l X 2(or 3) array of geometric morphometric data containing some percentage of missing data
 }
 }
 \value{
@@ -26,13 +26,4 @@ J. Arbour and C. Brown
 \seealso{
 \code{\link{missing.data}}
 }
-\examples{
-data(crocs)
 
-## remove 30% of data points
-croc.miss<-missing.data(crocs,0.3)
-
-## should return 0.3
-how.many.missing (croc.miss)
-
-}

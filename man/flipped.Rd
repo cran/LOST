@@ -6,10 +6,10 @@ Reflected Relabelling
 \description{
 This function carries out reflected relabelling to estimate missing geometric morphometric landmarks using bilateral symmetry following Gunz et al 2009.
 
-A set of 3D landmarks are mirrored and aligned with the original data (using procOPA from pakcage "shapes"). Missing landmarks are interpolated from the mirrored specimen.
+A set of 3D landmarks are mirrored and aligned with the original data (using procOPA from package "shapes"). Missing landmarks are interpolated from the mirrored specimen.
 }
 \usage{
-flipped(specimen, land.pairs, show.plot = FALSE)
+flipped(specimen, land.pairs, show.plot = FALSE, axis = 1)
 }
 \arguments{
   \item{specimen}{
@@ -20,6 +20,9 @@ A 2 column matrix, each row should contain row numbers (from matrix specimen) in
 }
   \item{show.plot}{
 Optionally plot the specimen using plot3d from rgl. Estimated landmarks are given in red. Defaults to FALSE.
+}
+  \item{axis}{
+Which axis should be mirrored across. Default is x (1).
 }
 }
 

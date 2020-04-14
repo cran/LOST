@@ -13,7 +13,8 @@ function (x, remperc, landmarks, expo = 1)
             nrcur <- length(current)
         }
         probmatrix <- rep(1, 2 * length(newsp))
-        for (m in 1:(nrcur)) {
+        probmatrix <- matrix(1,ncol=length(newsp),nrow=length(removes))
+           for (m in 1:(nrcur)) {
             distancesx1 <- distances[1, ]
             distancesx2 <- distances[2, ]
             distancesy1 <- distances[3, ]
@@ -25,32 +26,27 @@ function (x, remperc, landmarks, expo = 1)
             distancesz <- rbind(distancesz1, distancesz2)
             if (sum(removes) == 0) {
                 anchor <- 0
-            }
-            else {
+            } else {
                 anchor <- current[m]
             }
             if (anchor == 0) {
                 sss <- 1
-            }
-            else {
+            }  else {
                 sss <- sa[m]
             }
             if (anchor == 0) {
                 basex <- 0
-            }
-            else {
+            }            else {
                 basex <- distancesx[sss, anchor]
             }
             if (anchor == 0) {
                 basey <- 0
-            }
-            else {
+            }            else {
                 basey <- distancesy[sss, anchor]
             }
             if (anchor == 0) {
                 basez <- 0
-            }
-            else {
+            }            else {
                 basez <- distancesz[sss, anchor]
             }
             distsx1 <- sqrt((distancesx1 - basex)^2)
@@ -79,7 +75,7 @@ function (x, remperc, landmarks, expo = 1)
             }
             checker <- c(newsp, newsp)
             probs <- ifelse(is.na(checker), 0, probs)
-            probmatrix <- rbind(probmatrix, probs)
+            probmatrix[m,] <- probs
         }
         probs <- apply(probmatrix, 2, prod)
         sums <- sum(probs)

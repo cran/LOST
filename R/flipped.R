@@ -1,7 +1,7 @@
-flipped<-function(specimen,land.pairs,show.plot=FALSE){
+flipped<-function(specimen,land.pairs,show.plot=FALSE,axis=1){
   
   reversed<-specimen
-  reversed[,1]<- -reversed[,1]
+  reversed[,axis]<- -reversed[,axis]
   new.reversed<-reversed
 
   for(i in 1:nrow(land.pairs)){

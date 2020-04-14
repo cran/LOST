@@ -7,17 +7,17 @@ Estimate missing landmark data
 This function provides several options for estimating landmark data (details of which can be found in the references below). The function first alignes the landmarks using Procrustes superimposition (\code{\link{align.missing}}). Both 2D and 3D coordinates can be accommodated.
 }
 \usage{
-MissingGeoMorph(x, nlandmarks, method = "BPCA")
+MissingGeoMorph(x, method = "BPCA", original.scale = FALSE)
 }
 \arguments{
   \item{x}{
-A n* l X 2 matrix of coordinate data, where n is the number of specimens and l is the number of landmarks. All landmarks from one specimen should be grouped together. Missing values should be given as NA
-}
-  \item{nlandmarks}{
-The number of landmarks per specimen.
+A n* l X 2 matrix (2D data only) or an l X m X n array (2D or 3D data) of coordinate data, where n is the number of specimens and l is the number of landmarks, and m is the number of dimensions. All landmarks from one specimen should be grouped together. Missing values should be given as NA
 }
   \item{method}{
 Four methods are provided for estimating missing landmark data: 1) "BPCA" - Bayesian principal component analysis, 2) "mean" - mean substitution, 3) "reg" - values are estimated based on the most strongly correlated variable available, and 4) "TPS" - thin plate spline interpolation (only available for 2D). See Arbour and Brown (2014) for a comparison of the performance of each of these methods.
+}
+  \item{original.scale}{
+Rescale and translate the data back to its original size (TRUE) or leave it in the rescaled, superimposed configuration (FALSE)
 }
 }
 

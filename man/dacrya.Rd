@@ -9,8 +9,7 @@ Sixteen landmarks taken from the lateral profile of 73 specimens from the Essequ
 }
 \usage{data(dacrya)}
 \format{
-A n * l X 2 matrix, with n being the number of specimens and l being the number of landmarks
-  }
+A 16 X 2 X 73 array of geometric morphometric coordinates  }
 \source{
 Arbour, J. and Lopez-Fernandez, H. 2011. \emph{Guiancara dacrya}, a new species from the rio Branco and Essequibo River drainages
 of the Guiana Shield (Perciformes: Cichlidae). \emph{Neotropical Ichthyology} 9:87-96.
@@ -18,3 +17,4 @@ of the Guiana Shield (Perciformes: Cichlidae). \emph{Neotropical Ichthyology} 9:
 \seealso{
 \code{\link{align.missing}}, \code{\link{MissingGeoMorph}}
 }
+

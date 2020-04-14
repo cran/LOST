@@ -1,4 +1,4 @@
-MissingGeoMorph<-function (x, nlandmarks, method = "BPCA") {
+MissingGeoMorph<-function (x, method = "BPCA", original.scale=FALSE) {
   
   if(!requireNamespace("pcaMethods")){
     print("some packages must be downloaded from bioconductor, use setRepositories() to select 'BioC' options")
@@ -6,40 +6,6 @@ MissingGeoMorph<-function (x, nlandmarks, method = "BPCA") {
   
   if(ncol(x)==3 & method=="TPS"){
     warning("method TPS can only support 2d data, see package geomorph for a 3d implementation")
-  }
-  
-  format.array <- function(dataset, nlandmarks) {
-    dataset <- as.matrix(dataset)
-    nspecimen <- nrow(dataset)/nlandmarks
-    start <- seq(from = 1, to = nrow(dataset), by = nlandmarks)
-    sparray <- array(dataset, dim <- c(nlandmarks, ncol(dataset), nspecimen))
-    for (k in 1:nspecimen) {
-      x <- start[k]
-      y <- x + nlandmarks - 1
-      single <- dataset[x:y, ]
-      sparray[, , k] <- single
-    }
-    return(sparray)
-  }
-  format.matrix <- function(x, nlandmarks) {
-    N = nlandmarks * ncol(x)
-    nspecimen <- nrow(x)/nlandmarks
-    datavector <- unmatrix(x, byrow = TRUE)
-    new.matrix <- matrix(datavector, nspecimen, N, byrow = TRUE)
-    return(new.matrix)
-  }
-  unformat <- function(x, nlandmarks,d) {
-    nsp <- length(x)/(nlandmarks * d)
-    rows <- nsp * nlandmarks
-    if (nsp == 1) {
-      mat <- matrix(x, rows, d, byrow = TRUE)
-      return(mat)
-    }
-    else {
-      vector <- unmatrix(x, byrow = TRUE)
-      mat <- matrix(vector, rows, d, byrow = TRUE)
-      return(mat)
-    }
   }
   
   
@@ -77,59 +43,37 @@ MissingGeoMorph<-function (x, nlandmarks, method = "BPCA") {
     matg[, 2] <- fx(matr, M, coefy)
     return(matg)
   }
-  missing.tps <- function(X, nlandmarks) {
-    char.com <- matrix(ncol = ncol(X), nrow = nrow(X))
-    xvalues <- X[, 1]
-    nspecimen <- nrow(X)/nlandmarks
-    xmat <- matrix(xvalues, ncol = nlandmarks, nrow = nspecimen, 
-                   byrow = TRUE)
-    missguide <- ifelse((is.na(xmat)) == TRUE, 1, 0)
-    whichpoints <- missguide * matrix(1:nlandmarks, ncol = nlandmarks, 
-                                      nrow = nspecimen, byrow = TRUE)
-    eachmissing <- apply(missguide, 1, sum)
-    incompletes <- setdiff(ifelse(eachmissing == 0, 0, 1) * 
-                             1:nspecimen, 0)
-    completes <- complete.specimens(X, nlandmarks)
-    GPA.com <- procGPA(format.array(completes, nlandmarks), 
-                       pcaoutput = FALSE, distances = FALSE)
-    aligned.com <- GPA.com$rotated
+  
+  
+  
+  missing.tps <- function(X) {
+    completes<-which(apply(ifelse(is.na(X),1,0),3,sum)==0)
+    incompletes<-which(!apply(ifelse(is.na(X),1,0),3,sum)==0)
+    
+    complete.specimens<-X[,,completes]
+    incomplete.specimens<-X[,,incompletes]
+    GPA.com <- procGPA(complete.specimens, pcaoutput = FALSE, distances = FALSE)
+    X.com<-X
+    
     mean.aligned <- GPA.com$mshape
-    aligned.mat <- aligned.com[, , 1]
-    for (z in 2:dim(aligned.com)[3]) {
-      aligned.mat <- rbind(aligned.mat, aligned.com[, , 
-                                                    z])
-    }
+    
     for (i in 1:length(incompletes)) {
-      current <- incompletes[i]
-      cur.spec <- X[((current - 1) * nlandmarks + 1):(current * 
-                                                        nlandmarks), ]
-      cur.miss <- setdiff(whichpoints[current, ], 0)
+      cur.spec <- incomplete.specimens[,,i]
+      cur.miss <- which(is.na(cur.spec[,1]))
       cur.spec.miss <- cur.spec[-cur.miss, ]
       mean.miss <- mean.aligned[-cur.miss, ]
       tps.aligned <- tps2d(mean.aligned, mean.miss, cur.spec.miss)
-      cur.spec2 <- cur.spec
-      cur.spec2[is.na(cur.spec2) == TRUE] <- 0
-      missing <- ifelse(is.na(cur.spec) == TRUE, 1, 0)
-      opposite <- ifelse(is.na(cur.spec) == TRUE, 0, 1)
-      new.spec <- cur.spec2 * opposite + tps.aligned * 
-        missing
-      starts <- (current - 1) * nlandmarks + 1
-      stops <- current * nlandmarks
-      char.com[starts:stops, ] <- as.matrix(new.spec)
+      X.com[,,incompletes[i]] <- tps.aligned
+      
     }
-    completed <- setdiff(1:nspecimen, incompletes)
-    for (f in 1:length(completed)) {
-      com.n <- completed[f]
-      com.spec <- aligned.com[, , f]
-      starts <- (com.n - 1) * nlandmarks + 1
-      stops <- com.n * nlandmarks
-      char.com[starts:stops, ] <- com.spec
-    }
-    return(char.com)
+    X.com[,,completes]<-complete.specimens
+    return(X.com)
   }
-  est.reg1 <- function(crocmiss, col_indep) {
-    cols <- ncol(crocmiss)
-    rows <- nrow(crocmiss)
+  
+  
+  est.reg1 <- function(X, col_indep) {
+    cols <- ncol(X)
+    rows <- nrow(X)
     estimated_matrix <- matrix(ncol = cols, nrow = rows)
     if (col_indep == 1) {
       deps <- 2:cols
@@ -141,11 +85,11 @@ MissingGeoMorph<-function (x, nlandmarks, method = "BPCA") {
       deps <- c(1:(col_indep - 1), (col_indep + 1):cols)
     }
     ndeps <- length(deps)
-    indep <- crocmiss[, col_indep]
+    indep <- X[, col_indep]
     rcoefs <- numeric()
     for (i in 1:ndeps) {
       vari <- deps[i]
-      lm_fit <- lm(crocmiss[, vari] ~ indep)
+      lm_fit <- lm(X[, vari] ~ indep)
       lm_sum <- summary.lm(lm_fit)
       rcoefs[i] <- sqrt(lm_sum$r.squared)
     }
@@ -156,10 +100,10 @@ MissingGeoMorph<-function (x, nlandmarks, method = "BPCA") {
       whichvari <- ifelse(ranks == (length(rcoefs) - a), 
                           1, 0)
       strongest <- sum(deps * whichvari)
-      indeps_lm <- lm(newindep ~ crocmiss[, strongest])
+      indeps_lm <- lm(newindep ~ X[, strongest])
       indeps_coef <- indeps_lm$coefficients
       logestimate_indep <- indeps_coef[1] + indeps_coef[2] * 
-        (crocmiss[, strongest])
+        (X[, strongest])
       estimate_indep <- logestimate_indep
       missings <- ifelse(is.na(newindep), 1, 0)
       nonmissings <- ifelse(is.na(newindep), 0, 1)
@@ -177,53 +121,51 @@ MissingGeoMorph<-function (x, nlandmarks, method = "BPCA") {
     }
     return(estimated.matrix)
   }
-  complete.specimens <- function(dataset, nlandmarks) {
-    if(ncol(dataset)==3){base<-c(1,1,1)
-    } else {
-      base <- c(1, 1)}
-    included <- base
-    excluded <- base
-    nspecimen <- nrow(dataset)/nlandmarks
-    start <- seq(from = 1, to = nrow(dataset), by = nlandmarks)
-    nsp <- 1:nspecimen
-    for (k in 1:nspecimen) {
-      x <- start[k]
-      y <- x + nlandmarks - 1
-      single <- dataset[x:y, ]
-      reduced <- na.omit(single)
-      rows <- nrow(reduced)
-      if (rows == nlandmarks) {
-        included <- rbind(included, single)
-      }
-      else {
-        excluded <- rbind(excluded, single)
-      }
-    }
-    end <- nrow(included)
-    included <- included[2:end, ]
-    return(included)
-  }
+  
+  
+  
   if (method == "BPCA") {
-    aligned <- align.missing(x, nlandmarks)
-    new.matrix <- format.matrix(aligned, nlandmarks)
+    aligned <- align.missing(x)
+    new.matrix <- two.d.array(aligned)
     estimator <- pca(new.matrix, method = "bpca")
     estimated.values <- completeObs(estimator)
-    results <- unformat(estimated.values, nlandmarks,ncol(x))
+    results <- arrayspecs(estimated.values, p=nrow(x),k=ncol(x))
   }
   else if (method == "mean") {
-    aligned <- align.missing(x, nlandmarks)
-    new.matrix <- format.matrix(aligned, nlandmarks)
+    aligned <- align.missing(x)
+    new.matrix <- two.d.array(aligned)
     estimated.values <- impute(new.matrix, what = "mean")
-    results <- unformat(estimated.values, nlandmarks,ncol(x))
+    results <- arrayspecs(estimated.values, p=nrow(x),k=ncol(x))
   }
   else if (method == "reg") {
-    aligned <- align.missing(x, nlandmarks)
-    new.matrix <- format.matrix(aligned, nlandmarks)
+    aligned <- align.missing(x)
+    new.matrix <- two.d.array(aligned)
     estimated.values <- best.reg(new.matrix)
-    results <- unformat(estimated.values, nlandmarks,ncol(x))
+    results <- arrayspecs(estimated.values, p=nrow(x),k=ncol(x))
   }
   else if (method == "TPS") {
-    results <- missing.tps(aligned, nlandmarks)
+    results <- missing.tps(aligned)
   }
-  return(results)
+  
+  
+if(original.scale==TRUE){
+results2<-x  
+incoms<-which(apply(ifelse(is.na(x),1,0),3,sum)>0)
+
+    for(j in 1:length(incoms)){
+    olds<-x[,,incoms[j]]
+    news<-results[,,incoms[j]]
+    which.com<-which(!is.na(olds[,1])) 
+    procs<-procOPA(olds[which.com,],news[which.com,])
+    transposer<-(olds[which.com,]-procs$Ahat)[1,]  
+    trans.mat<-matrix(transposer,ncol=ncol(news),nrow=nrow(news),byrow=TRUE)
+    rot<-fcnt(news)%*%procs$R*procs$s
+    fixed<-rot+trans.mat-matrix((rot[which.com,]-procs$Bhat)[1,],ncol=ncol(x),nrow=nrow(rot),byrow=TRUE)
+    results2[,,incoms[j]]<-fixed
+  }
+  return(results2)
+} else {
+  return(results)}
+  
+  
 }

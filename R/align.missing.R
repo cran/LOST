@@ -1,100 +1,39 @@
-align.missing<-function (X, nlandmarks) {
-  format.array <- function(dataset, nlandmarks) {
-    dataset <- as.matrix(dataset)
-    nspecimen <- nrow(dataset)/nlandmarks
-    start <- seq(from = 1, to = nrow(dataset), by = nlandmarks)
-    sparray <- array(dataset, dim <- c(nlandmarks, ncol(dataset), nspecimen))
-    for (k in 1:nspecimen) {
-      x <- start[k]
-      y <- x + nlandmarks - 1
-      single <- dataset[x:y, ]
-      sparray[, , k] <- single
-    }
-    return(sparray)
-  }
-  complete.specimens <- function(dataset, nlandmarks) {
-   if(ncol(dataset)==3){base<-c(1,1,1)
-   } else {
-     base <- c(1, 1)}
-    included <- base
-    excluded <- base
-    nspecimen <- nrow(dataset)/nlandmarks
-    start <- seq(from = 1, to = nrow(dataset), by = nlandmarks)
-    nsp <- 1:nspecimen
-    for (k in 1:nspecimen) {
-      x <- start[k]
-      y <- x + nlandmarks - 1
-      single <- dataset[x:y, ]
-      reduced <- na.omit(single)
-      rows <- nrow(reduced)
-      if (rows == nlandmarks) {
-        included <- rbind(included, single)
-      }
-      else {
-        excluded <- rbind(excluded, single)
-      }
-    }
-    end <- nrow(included)
-    included <- included[2:end, ]
-    return(included)
-  }
-  
-  
-  X.com <- matrix(ncol = ncol(X), nrow = nrow(X))
-  xvalues <- X[, 1]
-  nspecimen <- nrow(X)/nlandmarks
-  xmat <- matrix(xvalues, ncol = nlandmarks, nrow = nspecimen, 
-                 byrow = TRUE)
-  missguide <- ifelse((is.na(xmat)) == TRUE, 1, 0)
-  whichpoints <- missguide * matrix(1:nlandmarks, ncol = nlandmarks, 
-                                    nrow = nspecimen, byrow = TRUE)
-  eachmissing <- apply(missguide, 1, sum)
-  incompletes <- setdiff(ifelse(eachmissing == 0, 0, 1) * 1:nspecimen, 
-                         0)
-  completes <- complete.specimens(X, nlandmarks)
-  
-  GPA.com <- procGPA(format.array(completes, nlandmarks), pcaoutput = FALSE, 
-                     distances = FALSE)
+align.missing<-function (X) {
 
-  
-  aligned.com <- GPA.com$rotated
-  mean.aligned <- GPA.com$mshape
-  aligned.mat <- aligned.com[, , 1]
-  for (z in 2:dim(aligned.com)[3]) {
-    aligned.mat <- rbind(aligned.mat, aligned.com[, , z])
-  }
-  for (i in 1:length(incompletes)) {
-    current <- incompletes[i]
-    cur.spec <- X[((current - 1) * nlandmarks + 1):(current * 
-                                                      nlandmarks), ]
-    cur.miss <- setdiff(whichpoints[current, ], 0)
-    cur.spec.miss <- cur.spec[-cur.miss, ]
-    mean.miss <- mean.aligned[-cur.miss, ]
-    OPA <- procOPA(mean.miss, as.matrix(cur.spec.miss))
-    transpose <- mean.miss[1, ] - OPA$Ahat[1, ]
-    new.specX <- OPA$Bhat[, 1] + transpose[1]
-    new.specY <- OPA$Bhat[, 2] + transpose[2]
+completes<-which(apply(ifelse(is.na(X),1,0),3,sum)==0)
+incompletes<-which(!apply(ifelse(is.na(X),1,0),3,sum)==0)
+
+complete.specimens<-X[,,completes]
+incomplete.specimens<-X[,,incompletes]
+GPA.com <- procGPA(complete.specimens, pcaoutput = FALSE, distances = FALSE)
+X.com<-X
+
+aligned.com <- GPA.com$rotated
+mean.aligned <- GPA.com$mshape
+
+
+for (i in 1:length(incompletes)) {
+  cur.spec <- incomplete.specimens[,,i]
+  cur.miss <- which(is.na(cur.spec[,1]))
+  cur.spec.miss <- cur.spec[-cur.miss, ]
+  mean.miss <- mean.aligned[-cur.miss, ]
+  OPA <- procOPA(mean.miss, as.matrix(cur.spec.miss))
+  transpose <- mean.miss[1, ] - OPA$Ahat[1, ]
+  new.specX <- OPA$Bhat[, 1] + transpose[1]
+  new.specY <- OPA$Bhat[, 2] + transpose[2]
   if(ncol(X)==3){
     new.specZ <- OPA$Bhat[, 3] + transpose[3]
     new.spec <- cbind(new.specX, new.specY, new.specZ)
     
   } else { new.spec <- cbind(new.specX, new.specY)}
-    new.spec.in <- new.spec
-    for (m in 1:length(cur.miss)) {
-      insert <- cur.miss[m]
-      new.spec.in <- insertRow(new.spec.in, insert)
-    }
-    starts <- (current - 1) * nlandmarks + 1
-    stops <- current * nlandmarks
-    X.com[starts:stops, ] <- new.spec.in
+  new.spec.in <- new.spec
+  for (m in 1:length(cur.miss)) {
+    insert <- cur.miss[m]
+    new.spec.in <- insertRow(new.spec.in, insert)
   }
-  completed <- setdiff(1:nspecimen, incompletes)
-  for (f in 1:length(completed)) {
-    com.n <- completed[f]
-    com.spec <- aligned.com[, , f]
-    starts <- (com.n - 1) * nlandmarks + 1
-    stops <- com.n * nlandmarks
-    X.com[starts:stops, ] <- com.spec
-  }
-  return(X.com)
+  X.com[,,incompletes[i]] <- new.spec.in
+}
+
+X.com[,,completes]<-aligned.com
+return(X.com)
 }

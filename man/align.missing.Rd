@@ -4,22 +4,18 @@
 Procrustes superimposition of landmark datasets with some missing values
 }
 \description{
-This function carries out a generalized procrustes superimposition on all fully complete specimens and produces a consensus confirguration (using "Shapes" procGPA). Each incomplete specimen is then individually rotated and aligned with the consensus configuration based on any landmarks are available (using "Shapes" procOPA). Landmarks are returned in the same shape space as the original dataset. Both 2D and 3D coordinates can be accommodated.
-}
+This function carries out a generalized procrustes superimposition on all fully complete specimens and produces a consensus configuration (using "Shapes" procGPA). Each incomplete specimen is then individually rotated and aligned with the consensus configuration based on any landmarks are available (using "Shapes" procOPA). Data is returned superimposed.}
 \usage{
-align.missing(X, nlandmarks)
+align.missing(X)
 }
 \arguments{
   \item{X}{
-A n* l X 2 (or 3) matrix of coordinate data, where n is the number of specimens and l is the number of landmarks. All landmarks from one specimen should be grouped together. 
-}
-  \item{nlandmarks}{
-The number of landmarks per specimen
-}
+An l X 2 (or 3) X n array of coordinate data, where n is the number of specimens and l is the number of landmarks.
+ }
 }
 
 \value{
-Returns and n*l X 2 (or 3) matrix of aligned landmarks
+Returns An l X 2 (or 3) X n array of coordinate data
 }
 \references{
 Arbour, J. and Brown, C. 2014. Incomplete specimens in Geometric Morphometric Analyses. \emph{Methods in Ecology and Evolution} 5(1):16-26.
@@ -36,13 +32,9 @@ J. Arbour
 data(dacrya)
 
 ## make some specimens incomplete
-dac.miss<-missing.specimens(dacrya,10,c(1,2,3,4,5,6),16)
-dac.miss
+dac.miss<-missing.data(dacrya,remsp=0.2,land.vec=c(1,2,3,4,5,6))
 
 ## align all specimens
-dac.aligned<-align.missing(dac.miss,16)
+dac.aligned<-align.missing(dac.miss)
 
-## compare original and aligned
-plot(dacrya,col="blue")
-points(dac.aligned,col="red")
 }

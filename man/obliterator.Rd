@@ -4,7 +4,7 @@
 Simulate missing morphometric data with anatomical bias
 }
 \description{
-This function simulates the effect of proximity between measurements in morphometric data on the distribution of missing values. This attempts to replicate specimens showing regional deformation or incompleteness. From a morphometric dataset, this function selects a number of specimens to have data points removed from and a number of measurements to remove from each of these specimens based on the distribution of missing data produced by \code{\link{missing.data}}. For each specimen, this function randomly selects one starting data point for removal. All subsequent data points have a probability of removal that is proportional to the inverse of the distance to all previously removed data points, based on a reference set of landmarks (matrix 'distances'). For a complete mathematical description see Brown et al. (In Press).
+This function simulates the effect of proximity between measurements in morphometric data on the distribution of missing values. This attempts to replicate specimens showing regional incompleteness. From a morphometric dataset, this function selects a number of specimens to have data points removed from and a number of measurements to remove from each of these specimens based on a random distribution of missing data. For each specimen, this function randomly selects one starting data point for removal. All subsequent data points have a probability of removal that is proportional to the inverse of the distance to all previously removed data points, based on a reference set of landmarks (matrix 'distances'). For a complete mathematical description see Brown et al. (2012). See function obliteratorGM for the geometric morphometric implementation.
 }
 \usage{
 obliterator(x, remperc, landmarks, expo=1)
@@ -33,5 +33,5 @@ Brown, C., Arbour, J. and Jackson, D. 2012. Testing of the Effect of Missing Dat
 J. Arbour and C. Brown
 }
 \seealso{
-\code{\link{missing.data}},\code{\link{byclade}}
+\code{\link{missing.data}},\code{\link{byclade}},\code{\link{obliteratorGM}}
 }
