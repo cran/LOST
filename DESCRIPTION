@@ -1,6 +1,6 @@
 Package: LOST
-Version: 2.0.2
-Date: 2020-4-13
+Version: 2.1.1
+Date: 2024-7-3
 Title: Missing Morphometric Data Simulation and Estimation
 Author: J. Arbour,
 	C. Brown
@@ -13,6 +13,6 @@ Description: Functions for simulating missing morphometric
 License: GPL (>= 2)
 Depends: R (>= 3.5.0)
 NeedsCompilation: no
-Packaged: 2020-04-14 04:37:30 UTC; Jessica
+Packaged: 2024-07-04 00:43:20 UTC; fount
 Repository: CRAN
-Date/Publication: 2020-04-14 07:00:11 UTC
+Date/Publication: 2024-07-04 02:20:02 UTC

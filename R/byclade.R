@@ -4,7 +4,7 @@ function (x, remperc, groups) {
   ngroups<-length(unique(groups))
   
   
-  if(class(x)=="matrix"){
+  if(length(dim(x))==2){
   remove.dat <- function(specimen, removes) {
         ndat <- length(specimen)
         rems <- sample(ndat, removes, replace = FALSE)
@@ -56,7 +56,7 @@ function (x, remperc, groups) {
   
   
   
-  if(class(x)=="array"){
+  if(length(dim(x))==3){
     remove.dat <- function(specimen, removes) {
       ndat <- nrow(specimen)
       rems <- sample(ndat, removes, replace = FALSE)

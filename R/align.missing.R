@@ -1,6 +1,8 @@
 align.missing<-function (X) {
 
 completes<-which(apply(ifelse(is.na(X),1,0),3,sum)==0)
+
+if(length(completes)==0){stop("you have zero complete specimens, function cannot be run")}
 incompletes<-which(!apply(ifelse(is.na(X),1,0),3,sum)==0)
 
 complete.specimens<-X[,,completes]

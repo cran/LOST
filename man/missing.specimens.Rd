@@ -34,6 +34,6 @@ J. Arbour
 }
 
 \seealso{
-\code{\link{align.missing}}, \{code{\link{MissingGeoMorph}}
+\code{\link{align.missing}}, \code{\link{MissingGeoMorph}}
 }
 

@@ -1,7 +1,7 @@
 missing.data <-function (x, remperc=NULL,remsp=NULL,land.vec=NULL,land.identity=NULL) {
 
  
-if(class(x)=="array"){
+if(length(dim(x))==3){
 
 ######### remove a percentage of data ####################  
   if(is.null(remsp)){

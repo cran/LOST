@@ -8,15 +8,6 @@ Missing morphometric data simulation and estimation
 \description{
 LOST includes functions for simulating missing morphometric data randomly, with taxonomic bias and with anatomical bias as described by Brown et al. 2012. This package also includes functions for estimating missing morphometric data based on regression analysis and a function for checking the percentage of missing data in a matrix.
 }
-\details{
-\tabular{ll}{
-Package: \tab LOST\cr
-Type: \tab Package\cr
-Version: \tab 1.1\cr
-Date: \tab 2020-04-13\cr
-License: \tab GPL (>= 2)\cr
-}
-}
 \author{
 J. Arbour and C. Brown
 

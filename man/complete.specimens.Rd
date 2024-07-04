@@ -31,5 +31,5 @@ J. Arbour
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\code{\link{align.missing}},code{\link{MissingGeoMorph}}
+\code{\link{align.missing}}, \code{\link{MissingGeoMorph}}
 }
