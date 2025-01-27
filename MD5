@@ -1,4 +1,4 @@
-dd99502ab58271c839d4481b2643e449 *DESCRIPTION
+ff9d3803bf0c8bd7850a6e46a14f4e0a *DESCRIPTION
 f55ffc54f8f81ca3471c2b0fe71757fd *NAMESPACE
 3997a6aa1ceda92b691eab37f8c2931a *R/MissingGeoMorph.R
 ff7ce14045899c009eaa991bc279056e *R/align.missing.R
@@ -14,7 +14,7 @@ f28bba3754c2676b2fc29e824fef5034 *R/missing.specimens.R
 c651a71c8730217eb9eb9fcd77bb3973 *R/obliterator.R
 aceaa2f3a566a8b2336ce42022f4fcc5 *R/obliteratorGM.R
 e9f4bc900b1a9f5661a8c57cee51c74c *R/unbend.spine.R
-47ba7167d4823377cf379fe6541adb3d *R/unbend.tps.poly.R
+8cfca24ffb0fa8b25674014d9ead3639 *R/unbend.tps.poly.R
 2d845ce65841860a4473ceb81d988c64 *data/crocs.landmarks.rda
 484dac9785e0ee62c32469042bd7b3c6 *data/crocs.rda
 8ca572ab20fbda8a0036631bd9b96ee0 *data/dacrya.rda
@@ -38,4 +38,4 @@ fe23c3e695d79a0d68f2efbccf176cf5 *man/flipped.Rd
 b2dc6edc7d2c4b037a0add519110bfbd *man/obliterator.Rd
 5a41d925f1d68e548a062d97ca22d913 *man/obliteratorGM.Rd
 1c33ade0d91b1d5dcd4bb4ac6f3ee58a *man/unbend.spine.Rd
-5d0fab1da4abf4dc9bd0b3f6875f4212 *man/unbend.tps.poly.Rd
+9c6046f31fd480b0ebe27446e51e4024 *man/unbend.tps.poly.Rd

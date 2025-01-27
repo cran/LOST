@@ -1,9 +1,14 @@
 Package: LOST
-Version: 2.1.1
-Date: 2024-7-3
+Version: 2.1.2
+Date: 2025-1-27
 Title: Missing Morphometric Data Simulation and Estimation
-Author: J. Arbour,
-	C. Brown
+Authors@R: c(person(given = "J.",
+                      family = "Arbour",
+                      role = c("aut", "cre"),
+                      email = "jessica.arbour@mtsu.edu"),
+               person(given = "C.",
+                      family = "Brown",
+                      role = "aut"))
 Maintainer: J. Arbour <jessica.arbour@mtsu.edu>
 Imports: gdata, shapes, e1071, pcaMethods, MASS, miscTools, stats, rgl,
         geomorph
@@ -13,6 +18,8 @@ Description: Functions for simulating missing morphometric
 License: GPL (>= 2)
 Depends: R (>= 3.5.0)
 NeedsCompilation: no
-Packaged: 2024-07-04 00:43:20 UTC; fount
+Packaged: 2025-01-27 20:44:22 UTC; fount
+Author: J. Arbour [aut, cre],
+  C. Brown [aut]
 Repository: CRAN
-Date/Publication: 2024-07-04 02:20:02 UTC
+Date/Publication: 2025-01-27 22:20:02 UTC
