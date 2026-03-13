@@ -1,7 +1,7 @@
-ff9d3803bf0c8bd7850a6e46a14f4e0a *DESCRIPTION
+1e97043ff1da0b257f22134699d9d37e *DESCRIPTION
 f55ffc54f8f81ca3471c2b0fe71757fd *NAMESPACE
 3997a6aa1ceda92b691eab37f8c2931a *R/MissingGeoMorph.R
-ff7ce14045899c009eaa991bc279056e *R/align.missing.R
+1e50cd00a278885d4170e0894152bad1 *R/align.missing.R
 8e1ddbf596f64381ea216266d626d58b *R/best.reg.R
 23de7828c2945f17dfa0bdac55b695b4 *R/bilat.align.R
 cf69d3b95f61120b70188c2f8ef4439b *R/byclade.R

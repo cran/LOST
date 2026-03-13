@@ -13,7 +13,11 @@ X.com<-X
 aligned.com <- GPA.com$rotated
 mean.aligned <- GPA.com$mshape
 
-
+if(length(incompletes)==1){
+  incomplete.specimens<-array(NA,dim=c(nrow(incomplete.specimens),ncol(incomplete.specimens),2))
+  incomplete.specimens[,,1]<-X[,,incompletes] 
+  incomplete.specimens[,,2]<-X[,,incompletes] 
+}
 for (i in 1:length(incompletes)) {
   cur.spec <- incomplete.specimens[,,i]
   cur.miss <- which(is.na(cur.spec[,1]))
