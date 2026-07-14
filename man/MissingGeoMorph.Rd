@@ -4,10 +4,10 @@
 Estimate missing landmark data
 }
 \description{
-This function provides several options for estimating landmark data (details of which can be found in the references below). The function first alignes the landmarks using Procrustes superimposition (\code{\link{align.missing}}). Both 2D and 3D coordinates can be accommodated.
+This function provides several options for estimating landmark data (details of which can be found in the references below). The function first optionally alignes the landmarks using Procrustes superimposition (\code{\link{align.missing}}). Both 2D and 3D coordinates can be accommodated.
 }
 \usage{
-MissingGeoMorph(x, method = "BPCA", original.scale = FALSE)
+MissingGeoMorph(x, method = "BPCA", original.scale = FALSE, align = TRUE)
 }
 \arguments{
   \item{x}{
@@ -18,6 +18,9 @@ Four methods are provided for estimating missing landmark data: 1) "BPCA" - Baye
 }
   \item{original.scale}{
 Rescale and translate the data back to its original size (TRUE) or leave it in the rescaled, superimposed configuration (FALSE)
+}
+\item{align}{
+Should the data first be aligned using \code{\link{align.missing}}?
 }
 }
 

@@ -1,6 +1,6 @@
-1e97043ff1da0b257f22134699d9d37e *DESCRIPTION
+ae7392eee98d103770d5ef796ae7b4b8 *DESCRIPTION
 f55ffc54f8f81ca3471c2b0fe71757fd *NAMESPACE
-3997a6aa1ceda92b691eab37f8c2931a *R/MissingGeoMorph.R
+eebd184ee0b5c382039a4a84b70fd339 *R/MissingGeoMorph.R
 1e50cd00a278885d4170e0894152bad1 *R/align.missing.R
 8e1ddbf596f64381ea216266d626d58b *R/best.reg.R
 23de7828c2945f17dfa0bdac55b695b4 *R/bilat.align.R
@@ -20,7 +20,7 @@ e9f4bc900b1a9f5661a8c57cee51c74c *R/unbend.spine.R
 8ca572ab20fbda8a0036631bd9b96ee0 *data/dacrya.rda
 1229b76548897dee55ac580bfceebbf3 *data/darters.rda
 6584ecfb1844733ab6b4f208479222a7 *man/LOST-package.Rd
-0b7361c3ff084b1b2ec9bb9475b630e6 *man/MissingGeoMorph.Rd
+eb1636f66e5eb25719315ce7aad3bc79 *man/MissingGeoMorph.Rd
 b6408c6dd2fd7d707329753303f04f3c *man/align.missing.Rd
 81b2532729b7db05d0dfbfe4736a22e1 *man/best.reg.Rd
 56b08d9ff252ae0705c2d9a2700bc085 *man/bilat.align.Rd

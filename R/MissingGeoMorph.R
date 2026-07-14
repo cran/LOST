@@ -1,4 +1,4 @@
-MissingGeoMorph<-function (x, method = "BPCA", original.scale=FALSE) {
+MissingGeoMorph<-function (x, method = "BPCA", original.scale=FALSE, align = TRUE) {
   
   if(!requireNamespace("pcaMethods")){
     print("some packages must be downloaded from bioconductor, use setRepositories() to select 'BioC' options")
@@ -125,47 +125,52 @@ MissingGeoMorph<-function (x, method = "BPCA", original.scale=FALSE) {
   
   
   if (method == "BPCA") {
-    aligned <- align.missing(x)
+    if(align){ aligned <- align.missing(x)
+    } else {aligned<-x}
     new.matrix <- two.d.array(aligned)
     estimator <- pca(new.matrix, method = "bpca")
     estimated.values <- completeObs(estimator)
     results <- arrayspecs(estimated.values, p=nrow(x),k=ncol(x))
   }
   else if (method == "mean") {
-    aligned <- align.missing(x)
+    if(align){ aligned <- align.missing(x)
+    } else {aligned<-x}
     new.matrix <- two.d.array(aligned)
     estimated.values <- impute(new.matrix, what = "mean")
     results <- arrayspecs(estimated.values, p=nrow(x),k=ncol(x))
   }
   else if (method == "reg") {
-    aligned <- align.missing(x)
+    if(align){ aligned <- align.missing(x)
+    } else {aligned<-x}
     new.matrix <- two.d.array(aligned)
     estimated.values <- best.reg(new.matrix)
     results <- arrayspecs(estimated.values, p=nrow(x),k=ncol(x))
   }
   else if (method == "TPS") {
+    if(align){ aligned <- align.missing(x)
+    } else {aligned<-x}
     results <- missing.tps(aligned)
   }
   
   
-if(original.scale==TRUE){
-results2<-x  
-incoms<-which(apply(ifelse(is.na(x),1,0),3,sum)>0)
-
+  if(original.scale==TRUE){
+    results2<-x  
+    incoms<-which(apply(ifelse(is.na(x),1,0),3,sum)>0)
+    
     for(j in 1:length(incoms)){
-    olds<-x[,,incoms[j]]
-    news<-results[,,incoms[j]]
-    which.com<-which(!is.na(olds[,1])) 
-    procs<-procOPA(olds[which.com,],news[which.com,])
-    transposer<-(olds[which.com,]-procs$Ahat)[1,]  
-    trans.mat<-matrix(transposer,ncol=ncol(news),nrow=nrow(news),byrow=TRUE)
-    rot<-fcnt(news)%*%procs$R*procs$s
-    fixed<-rot+trans.mat-matrix((rot[which.com,]-procs$Bhat)[1,],ncol=ncol(x),nrow=nrow(rot),byrow=TRUE)
-    results2[,,incoms[j]]<-fixed
-  }
-  return(results2)
-} else {
-  return(results)}
+      olds<-x[,,incoms[j]]
+      news<-results[,,incoms[j]]
+      which.com<-which(!is.na(olds[,1])) 
+      procs<-procOPA(olds[which.com,],news[which.com,])
+      transposer<-(olds[which.com,]-procs$Ahat)[1,]  
+      trans.mat<-matrix(transposer,ncol=ncol(news),nrow=nrow(news),byrow=TRUE)
+      rot<-fcnt(news)%*%procs$R*procs$s
+      fixed<-rot+trans.mat-matrix((rot[which.com,]-procs$Bhat)[1,],ncol=ncol(x),nrow=nrow(rot),byrow=TRUE)
+      results2[,,incoms[j]]<-fixed
+    }
+    return(results2)
+  } else {
+    return(results)}
   
   
 }
